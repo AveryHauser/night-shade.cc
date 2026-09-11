@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>night-shade.cc</title>
+<meta name="description" content="Avery Hauser's working notebook: a local LLM rig, a data-broker opt-out tool, a segmented home lab, and projects for the OHIO Cybersecurity Club.">
+<meta name="theme-color" content="#110C13">
+<meta property="og:title" content="night-shade.cc — Avery Hauser">
+<meta property="og:description" content="Projects in progress: local AI, security tooling, home lab, and club work.">
+<meta property="og:url" content="https://night-shade.cc/">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=JetBrains+Mono:wght@400;500;600&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/projects.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar wrap">
+  <a class="mark" href="#top" aria-label="night-shade, home">
+    <svg class="mark-berry" viewBox="0 0 24 24" aria-hidden="true"><path class="mb-calyx" d="M12 12 L3 9.5 L8 14.5 L6.5 21 L12 17 L17.5 21 L16 14.5 L21 9.5 Z"/><circle class="mb-berry" cx="12" cy="11" r="6"/><circle class="mb-shine" cx="9.8" cy="8.8" r="1.5"/></svg>
+    <span>night<b>-</b>shade</span>
+  </a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#projects">Projects</a>
+    <a href="#lab">Lab</a>
+    <a href="#decisions">Decisions</a>
+    <a href="#now">Now</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<section class="hero wrap" id="top">
+  <div class="hero-copy">
+    <p class="eyebrow">Avery Hauser &middot; projects in progress</p>
+    <h1>Most of what&rsquo;s here runs on hardware I&nbsp;can <span class="accent">unplug</span>.</h1>
+    <p class="lede">I&rsquo;m a computer science student and vice president of the OHIO Cybersecurity Club. This is the working notebook for what I&rsquo;m building: a local LLM rig on a Proxmox box, a privacy tool that handles my data-broker opt-outs, and the segmented lab that keeps it all apart.</p>
+    <dl class="readout">
+      <div><dt>Now building</dt><dd>Local inference on an RX580, via Vulkan</dd></div>
+      <div><dt>Always on</dt><dd>nightshade, a Raspberry Pi 5</dd></div>
+      <div><dt>Waiting on</dt><dd><a href="#decisions">A GPU decision</a></dd></div>
+    </dl>
+  </div>
+
+  <figure class="specimen">
+    <canvas id="sprig" aria-hidden="true"></canvas>
+    <div class="sprig-tip" id="sprig-tip" hidden></div>
+    <figcaption class="herb-label">
+      <span class="hl-family">Solanaceae</span>
+      <span class="hl-name"><i>Atropa belladonna</i> L.</span>
+      <span class="hl-coll">Coll. night-shade.cc &middot; <span data-updated>September 2026</span></span>
+      <span class="hl-key" id="fruit-key"></span>
+      <span class="hl-hint">Each fruit is a project. Hover to name it.</span>
+    </figcaption>
+  </figure>
+</section>
+
+<section class="section wrap" id="projects" aria-labelledby="projects-h">
+  <header class="section-head">
+    <p class="eyebrow" id="projects-count">Projects</p>
+    <h2 id="projects-h">Projects</h2>
+    <p>What&rsquo;s running, what&rsquo;s being built, and what&rsquo;s waiting on parts. Open a card&rsquo;s field notes for the details.</p>
+  </header>
+  <div class="controls">
+    <div class="filters" id="filters" role="group" aria-label="Filter projects by field"></div>
+    <p class="tally" id="tally" aria-live="polite"></p>
+  </div>
+  <div class="grid" id="project-grid"></div>
+  <noscript><p class="noscript">The project list needs JavaScript. The short version: a local LLM rig, OptOut, a Raspberry Pi service host, the club website and server, and an air-gapped malware bench.</p></noscript>
+</section>
+
+<section class="section wrap" id="lab" aria-labelledby="lab-h">
+  <header class="section-head">
+    <p class="eyebrow">5 machines &middot; 3 zones &middot; 0 port forwards</p>
+    <h2 id="lab-h">The lab</h2>
+    <p>Private services live on the tailnet. The club gets its own subnet, reachable only through Cloudflare Access. The malware bench never touches a network at all.</p>
+  </header>
+
+  <div class="diagram" role="img" aria-label="Lab diagram. Tailnet zone: phone, T14 laptop, nightshade Raspberry Pi and the pve Proxmox desktop, all joined through Tailscale. Club subnet, planned: the T5610 server and a Wi-Fi access point, reached from the internet only through Cloudflare Tunnel and Access. Air gap, planned: the T470s, with no network connection.">
+    <svg viewBox="0 0 760 440" aria-hidden="true">
+      <!-- zones -->
+      <rect class="zone" x="16" y="16" width="420" height="408" rx="4"/>
+      <text class="zone-label" x="34" y="40">TAILNET &middot; PRIVATE</text>
+
+      <rect class="zone zone-planned" x="460" y="104" width="284" height="170" rx="4"/>
+      <text class="zone-label" x="478" y="128">CLUB SUBNET &middot; PLANNED</text>
+
+      <rect class="zone zone-gap" x="460" y="300" width="284" height="124" rx="4"/>
+      <text class="zone-label" x="478" y="324">AIR GAP &middot; PLANNED</text>
+
+      <!-- tailnet edges -->
+      <g class="edges">
+        <line x1="126" y1="96" x2="226" y2="226"/>
+        <line x1="326" y1="96" x2="226" y2="226"/>
+        <line x1="126" y1="356" x2="226" y2="226"/>
+        <line x1="326" y1="356" x2="226" y2="226"/>
+      </g>
+      <circle class="hub" cx="226" cy="226" r="30"/>
+      <text class="hub-label" x="226" y="223" text-anchor="middle">tailscale</text>
+      <text class="hub-sub" x="226" y="237" text-anchor="middle">wireguard</text>
+
+      <!-- tailnet nodes -->
+      <g class="node"><rect x="36" y="60" width="180" height="72" rx="3"/>
+        <text class="n-name" x="50" y="84">phone</text>
+        <text class="n-hw" x="50" y="103">Tailscale client</text>
+        <text class="n-role" x="50" y="120">remote access</text></g>
+      <g class="node"><rect x="236" y="60" width="180" height="72" rx="3"/>
+        <text class="n-name" x="250" y="84">t14</text>
+        <text class="n-hw" x="250" y="103">ThinkPad T14 Gen 3</text>
+        <text class="n-role" x="250" y="120">daily · practice VMs</text></g>
+      <g class="node"><rect x="36" y="320" width="180" height="72" rx="3"/>
+        <text class="n-name" x="50" y="344">nightshade</text>
+        <text class="n-hw" x="50" y="363">Raspberry Pi 5 · 8 GB</text>
+        <text class="n-role" x="50" y="380">exit node · services</text></g>
+      <g class="node"><rect x="236" y="320" width="180" height="72" rx="3"/>
+        <text class="n-name" x="250" y="344">pve</text>
+        <text class="n-hw" x="250" y="363">Ryzen 7 7700 · RX580</text>
+        <text class="n-role" x="250" y="380">Proxmox · LLM LXC</text></g>
+
+      <!-- cloudflare to club -->
+      <g class="node node-edge"><rect x="478" y="24" width="248" height="52" rx="3"/>
+        <text class="n-name" x="492" y="46">cloudflare</text>
+        <text class="n-hw" x="492" y="64">Tunnel + Access login</text></g>
+      <line class="edge-tunnel" x1="602" y1="76" x2="602" y2="144"/>
+      <text class="edge-label" x="610" y="98">outbound tunnel</text>
+
+      <g class="node node-planned"><rect x="478" y="144" width="248" height="60" rx="3"/>
+        <text class="n-name" x="492" y="167">t5610</text>
+        <text class="n-hw" x="492" y="186">Dell Precision · club server</text></g>
+      <g class="node node-planned"><rect x="478" y="214" width="248" height="46" rx="3"/>
+        <text class="n-name" x="492" y="234">ap</text>
+        <text class="n-hw" x="532" y="234">TP-Link AC1200 access point</text></g>
+
+      <g class="node node-planned"><rect x="478" y="340" width="248" height="64" rx="3"/>
+        <text class="n-name" x="492" y="364">t470s</text>
+        <text class="n-hw" x="492" y="384">ThinkPad T470s · malware, offline</text></g>
+    </svg>
+  </div>
+
+  <div class="table-wrap">
+    <table class="inventory">
+      <caption>Inventory</caption>
+      <thead><tr><th scope="col">Host</th><th scope="col">Hardware</th><th scope="col">Role</th><th scope="col">Zone</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">t14</th><td>ThinkPad T14 Gen 3 &middot; i7-1270P &middot; 32 GB &middot; 1 TB</td><td>Daily driver; isolated, on-demand practice VMs</td><td>Tailnet</td></tr>
+        <tr><th scope="row">nightshade</th><td>Raspberry Pi 5 &middot; 8 GB &middot; 64 GB SD</td><td>Ubuntu Server; Tailscale exit node; OptOut, Actual Budget</td><td>Tailnet</td></tr>
+        <tr><th scope="row">pve</th><td>Ryzen 7 7700 &middot; 16 GB &middot; 2 TB SSD &middot; RX580 8 GB</td><td>Proxmox VE 9; llama.cpp + dsh in a Debian 12 LXC</td><td>Tailnet, own subnet</td></tr>
+        <tr><th scope="row">t5610</th><td>Dell Precision T5610 &middot; CPU upgrade pending</td><td>Club server behind Cloudflare Access</td><td>Club subnet (planned)</td></tr>
+        <tr><th scope="row">t470s</th><td>ThinkPad T470s</td><td>Malware analysis</td><td>Air gap (planned)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section wrap" id="decisions" aria-labelledby="dec-h">
+  <header class="section-head">
+    <p class="eyebrow">Open decision &middot; undecided</p>
+    <h2 id="dec-h">The next GPU</h2>
+    <p>The RX580 gets models running. It won&rsquo;t get me to bigger models or training. The shortlist is two used cards, and each one gives up something different.</p>
+  </header>
+  <div class="table-wrap">
+    <table class="compare">
+      <thead>
+        <tr>
+          <td></td>
+          <th scope="col" class="is-current"><span class="c-tag">In the box now</span>Radeon RX580 <span class="c-mem">8 GB</span></th>
+          <th scope="col"><span class="c-tag">Used</span>Tesla V100 <span class="c-mem">32 GB</span></th>
+          <th scope="col"><span class="c-tag">Used</span>RTX 3090 <span class="c-mem">24 GB</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Memory</th><td class="is-current">8 GB GDDR5</td><td>32 GB HBM2</td><td>24 GB GDDR6X</td></tr>
+        <tr><th scope="row">Bandwidth</th><td class="is-current">256 GB/s</td><td>900 GB/s</td><td>936 GB/s</td></tr>
+        <tr><th scope="row">Architecture</th><td class="is-current">Polaris</td><td>Volta</td><td>Ampere</td></tr>
+        <tr><th scope="row">Software</th><td class="is-current">llama.cpp on Vulkan</td><td>Stuck on CUDA 12.x &mdash; CUDA 13 dropped Volta; no bf16</td><td>Current CUDA, bf16</td></tr>
+        <tr><th scope="row">Power &amp; cooling</th><td class="is-current">185 W, own fans</td><td>250 W, passive &mdash; needs forced airflow</td><td>350 W, big 3-slot cooler</td></tr>
+        <tr><th scope="row">The case for it</th><td class="is-current">Already running</td><td>Biggest memory pool; room to add a second card later</td><td>Newer stack, easier to live with, less memory</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="aside">Also on the table: two V100s now, then a newer-generation card once GPU and RAM prices come back down.</p>
+</section>
+
+<section class="section wrap" id="now" aria-labelledby="now-h">
+  <header class="section-head">
+    <p class="eyebrow">Updated <span data-updated>September 2026</span></p>
+    <h2 id="now-h">Now &amp; next</h2>
+  </header>
+  <div class="now-cols">
+    <div>
+      <h3>On the bench</h3>
+      <ul class="log">
+        <li><a href="#p-local-llm">local-llm</a><span>Getting llama.cpp&rsquo;s Vulkan backend stable on the RX580 inside a Proxmox LXC.</span></li>
+        <li><a href="#p-harness">harness</a><span>Wiring DeepSeek Harness to the local model.</span></li>
+        <li><a href="#p-optout">optout</a><span>Running OptOut in review-only mode on the Pi, rootless and tailnet-only.</span></li>
+        <li><a href="#p-club-site">club</a><span>Keeping ohio-cyber.us current for the club.</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Up next</h3>
+      <ul class="log">
+        <li><a href="#decisions">gpu</a><span>Choose between a V100 32 GB and an RTX 3090.</span></li>
+        <li><a href="#p-club-server">t5610</a><span>Upgrade the CPUs and stand up the club subnet behind Cloudflare Access.</span></li>
+        <li><a href="#p-club-server">router</a><span>Add a second router so the network can be split properly.</span></li>
+        <li><a href="#p-malware-bench">t470s</a><span>Take the T470s offline for good and set it up for malware analysis.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer wrap" id="contact">
+  <h2>Say hello.</h2>
+  <ul class="contact">
+    <li><span>Email</span><a href="mailto:hello@night-shade.cc">hello@night-shade.cc</a></li>
+    <!-- Add your GitHub once you're ready:
+    <li><span>GitHub</span><a href="https://github.com/YOUR-HANDLE">github.com/YOUR-HANDLE</a></li>
+    -->
+    <li><span>Club</span><a href="https://ohio-cyber.us">ohio-cyber.us</a></li>
+    <li><span>Found a bug?</span><a href=".well-known/security.txt">security.txt</a></li>
+  </ul>
+  <p class="colophon">Hand-written HTML on Cloudflare Pages. No analytics, no cookies, no build step. Set in Gloock, Schibsted Grotesk and JetBrains Mono. Updated <span data-updated>September 2026</span>.</p>
+</footer>
+</body>
+</html>
